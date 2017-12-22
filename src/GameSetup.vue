@@ -1,9 +1,13 @@
 <template>
   <div>
     <h1 class="f2">Game Setup</h1>
-    <player-list :players="allPlayers" @remove-player="removePlayer($event)"></player-list>
+    <draggable class="list pl0" element="ul" v-model="allPlayers">
+      <li class="ba bw1 pa3 mv2" v-for="(player, index) in allPlayers" :key="player">
+        <player :player="player" :index="index" @remove-player="removePlayer($event)"></player>
+      </li>
+    </draggable>
     <form class="mv4" @submit.prevent="addPlayer()">
-      <input type="text" v-model="newPlayerName">
+      <input ref="playerName" type="text" v-model="newPlayerName">
       <button :disabled="!validPlayerName">Add Player</button>
     </form>
     <button @click="startGame()" :disabled="!readyToPlay">Start Game!</button>
@@ -11,17 +15,22 @@
 </template>
 
 <script>
-import PlayerList from './PlayerList.vue';
+import Player from './Player.vue';
+import draggable from 'vuedraggable';
 
 export default {
   name: 'game-setup',
   props: ['players'],
-  components: { PlayerList },
+  components: { Player, draggable },
   data() {
     return {
       allPlayers: this.players,
       newPlayerName: ''
     }
+  },
+  mounted() {
+    this.$refs.playerName.focus();
+    this.$refs.playerName.select();
   },
   computed: {
     validPlayerName() {

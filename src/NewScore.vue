@@ -2,7 +2,7 @@
   <div>
     <slot></slot>
     <form @submit.prevent="emitScore()">
-      <input ref="score" v-model.number="score" type="number" v-bind:class="style"></input>
+      <input ref="score" v-model.number="score" type="number" v-bind:class="style">
       <button :disabled="!isValidScore">Add</button>
     </form>
   </div>
