@@ -1,11 +1,9 @@
 <template>
   <div class="ma0 pa0 w-90 center">
     <h1>Score Card</h1>
-    <score-card v-bind:players="players" v-bind:round-totals="roundTotals" v-bind:player-totals="playerTotals" v-on:edit-score="editScore($event)"></score-card>
-    <new-score v-if="isPlaying" v-on:new-score="appendScore($event)">
-      <h1>Player: {{ players[currentPlayer] }} Round: {{ currentRound + 1 }}</h1>
-    </new-score>
-    <edit-score v-if="isEditing" v-bind:round="editing.round + 1" v-bind:player="players[editing.player]" v-bind:score="editing.score" v-on:update="updateScore($event)" v-on:cancel="cancelEdit()"></edit-score>
+    <score-card :players="players" :round-totals="roundTotals" :player-totals="playerTotals" @edit-score="editScore($event)"></score-card>
+    <new-score v-if="isPlaying" :player="players[currentPlayer]" :round="currentRound + 1" @new-score="appendScore($event)"></new-score>
+    <edit-score v-if="isEditing" :round="editing.round + 1" :player="players[editing.player]" :score="editing.score" @update="updateScore($event)" @cancel="cancelEdit()"></edit-score>
   </div>
 </template>
 
