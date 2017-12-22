@@ -1,8 +1,9 @@
 <template>
-  <div class="center w-90 tc">
-    <h1 class="center">Farkle!</h1>
-    <game-setup v-if="showSetup" v-on:new-game="startGame($event)" v-bind:players="players"></game-setup>
-    <game v-if="showGame" v-on:game-complete="endGame($event)" v-bind:players="players"></game>
+  <div class="center tc">
+    <h1 class="f1 center">Farkle!</h1>
+    <game-setup v-if="showSetup" v-on:new-game="onStartGame($event)" v-bind:players="players"></game-setup>
+    <game v-if="showGame" v-on:game-complete="onEndGame($event)" v-bind:players="players"></game>
+    <button @click="newGame()">Start New Game</button>
   </div>
 </template>
 
@@ -16,16 +17,19 @@ export default {
   data() {
     return {
       state: 'setup',
-      players: ['A', 'B', 'C', 'D', 'E', 'F']
+      players: []
     };
   },
   methods: {
-    startGame(players) {
+    onStartGame(players) {
       this.players = players;
       this.state = 'playing';
     },
-    endGame(scores) {
+    onEndGame(scores) {
       this.state = 'done';
+    },
+    newGame() {
+      this.state = 'setup'
     }
   },
   computed: {

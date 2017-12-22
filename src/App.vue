@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="helvetica f5 flex flex-column center w-80">
+  <div id="app" class="f6 flex flex-column center w-80">
     <farkle class=""></farkle>
   </div>
 </template>
@@ -12,3 +12,9 @@ export default {
   components: { Farkle }
 }
 </script>
+
+<style>
+#app {
+  font-family: 'Anton', helvetica, sans-serif;
+}
+</style>
