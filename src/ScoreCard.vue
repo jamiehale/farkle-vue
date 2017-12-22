@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-column f4 w-100 center">
+  <div class="flex flex-column f2 w-100 center">
     <div class="flex flex-row bb bw2 fw5">
       <div class="w4 pv2 ph1 tc">Round</div>
       <div class="w4 pv2 ph1 tc" v-for="player in players" v-bind:key="player">

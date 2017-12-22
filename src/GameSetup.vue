@@ -1,13 +1,8 @@
 <template>
   <div>
-    <h1>Game Setup</h1>
-    <ul>
-      <li v-for="player in allPlayers" v-bind:key="player">
-        {{ player }}
-        <button @click="removePlayer(player)">Remove</button>
-      </li>
-    </ul>
-    <form @submit.prevent="addPlayer()">
+    <h1 class="f2">Game Setup</h1>
+    <player-list :players="allPlayers" @remove-player="removePlayer($event)"></player-list>
+    <form class="mv4" @submit.prevent="addPlayer()">
       <input type="text" v-model="newPlayerName">
       <button :disabled="!validPlayerName">Add Player</button>
     </form>
@@ -16,9 +11,12 @@
 </template>
 
 <script>
+import PlayerList from './PlayerList.vue';
+
 export default {
   name: 'game-setup',
   props: ['players'],
+  components: { PlayerList },
   data() {
     return {
       allPlayers: this.players,

@@ -1,9 +1,9 @@
 <template>
-  <div class="center tc">
+  <div class="flex flex-column center tc">
     <h1 class="f1 center">Farkle!</h1>
     <game-setup v-if="showSetup" v-on:new-game="onStartGame($event)" v-bind:players="players"></game-setup>
     <game v-if="showGame" v-on:game-complete="onEndGame($event)" v-bind:players="players"></game>
-    <button @click="newGame()">Start New Game</button>
+    <button v-if="showStartNew" @click="newGame()">Start New Game</button>
   </div>
 </template>
 
@@ -37,6 +37,9 @@ export default {
       return this.state === 'setup';
     },
     showGame() {
+      return this.state === 'playing' || this.state === 'done';
+    },
+    showStartNew() {
       return this.state === 'playing' || this.state === 'done';
     }
   }

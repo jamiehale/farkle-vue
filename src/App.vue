@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="f6 flex flex-column center w-80">
+  <div id="app" class="flex flex-column center w-80">
     <farkle class=""></farkle>
   </div>
 </template>
