@@ -4,9 +4,16 @@
       <h1 class="f3">Round: {{ round }}</h1>
       <h1 class="f3">Player: {{ player }}</h1>
     </div>
+    <div>
+      <h1 class="f4">Partials:</h1>
+      <ol>
+        <li v-for="(partial, index) in partials" :key="index">{{ partial }}</li>
+      </ol>
+      <p>Total: {{ runningTotal }}</p>
+    </div>
     <div class="">
-      <form class="flex flex-column" @submit.prevent="emitScore()">
-        <input ref="score" class="tc" v-model.number="score" type="number" :class="style" @focus="focusOnInput()">
+      <form class="flex flex-column" @submit.prevent="addScore()">
+        <input ref="score" class="tc" v-model="codedScore" type="text" :class="style" @focus="focusOnInput()">
         <button class="mt2" :disabled="!isValidScore">Score</button>
       </form>
     </div>
@@ -14,14 +21,15 @@
 </template>
 
 <script>
-import { validScore } from './lib/validators';
+import { validScore, partialScore, isPartial, mergeScore } from './lib/validators';
 
 export default {
   name: 'new-score',
   props: ['player', 'round'],
   data() {
     return {
-      score: 0
+      codedScore: '0',
+      partials: []
     }
   },
   mounted() {
@@ -32,9 +40,11 @@ export default {
     focusOnInput() {
       this.$refs.score.select();
     },
-    emitScore() {
-      if (validScore(this.score)) {
-        this.$emit('new-score', +this.score);
+    addScore() {
+      if (isPartial(this.codedScore)) {
+        this.partials = [...this.partials, partialScore(this.codedScore)];
+      } else {
+        this.$emit('new-score', mergeScore(this.codedScore, this.partials));
       }
       this.$refs.score.focus();
       this.$refs.score.select();
@@ -44,8 +54,11 @@ export default {
     style() {
       return ['ba', 'bw2', (this.isValidScore ? 'b--green': 'b--red')];
     },
+    runningTotal() {
+      return this.partials.reduce((sum, score) => sum + score, 0);
+    },
     isValidScore() {
-      return this.score !== '' && validScore(+this.score);
+      return validScore(this.codedScore);
     }
   }
 }

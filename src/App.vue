@@ -15,6 +15,10 @@ export default {
 
 <style>
 #app {
+  font-family: helvetica, sans-serif;
+}
+
+.anton {
   font-family: 'Anton', helvetica, sans-serif;
 }
 </style>

@@ -1,17 +1,23 @@
 <template>
-  <div class="helvetica flex flex-column f4 w-100 center">
-    <div class="flex flex-row bb bw2">
-      <div class="w4 pv2 ph1 b tc">Round</div>
-      <div class="w4 pv2 ph1 b tc" v-for="player in players" v-bind:key="player">
-        {{ player }}
-      </div>
-    </div>
-    <round class="flex flex-row" v-for="(round, index) in roundTotals.totals" v-bind:round="round" v-bind:round-number="index + 1" v-bind:key="index" v-on:edit-score="editScore($event)"></round>
-    <div class="flex flex-row bt bw2 fw5">
-      <div class="w4 pv2 ph1 b tc">Totals</div>
-      <div class="w4 pv2 ph1 b tc" v-for="(total, index) in playerTotals" v-bind:key="index">{{ total }}</div>
-    </div>
-  </div>
+  <table class="table collapse helvetica f4 w-100 center pa0 ma0">
+    <thead>
+      <tr class="bb bw2">
+        <th class="w4 pv2 ph1 b tc">Round</th>
+        <th class="w5 pv2 ph1 b tc" v-for="player in players" :key="player">
+          {{ player }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <round v-for="(round, index) in roundTotals.totals" :round="round" :round-number="index + 1" :key="index" @edit-score="editScore($event)"></round>
+    </tbody>
+    <tfoot class="bt bw2 fw5">
+      <tr>
+        <th class="pv2 ph1 b tc">Totals</th>
+        <th class="pv2 ph1 b tc" v-for="(total, index) in playerTotals" :key="index">{{ total }}</th>
+      </tr>
+    </tfoot>
+  </table>
 </template>
 
 <script>

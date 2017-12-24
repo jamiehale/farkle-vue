@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h1 class="f2">Game Setup</h1>
+    <h1 class="anton f2">Game Setup</h1>
+    <p>Add and arrange players, and then click "Start Game!"</p>
     <draggable class="list pl0" element="ul" v-model="allPlayers">
-      <li class="ba bw1 pa3 mv2" v-for="(player, index) in allPlayers" :key="player">
+      <li class="ba bw1 pa0 mv2 bg-light-gray" v-for="(player, index) in allPlayers" :key="player">
         <player :player="player" :index="index" @remove-player="removePlayer($event)"></player>
       </li>
     </draggable>

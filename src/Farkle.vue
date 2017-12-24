@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-column center tc">
-    <h1 class="f1 center">Farkle!</h1>
+    <h1 class="anton f1 center">Farkle!</h1>
     <game-setup v-if="showSetup" v-on:new-game="onStartGame($event)" v-bind:players="players"></game-setup>
     <game v-if="showGame" v-on:game-complete="onEndGame($event)" v-bind:players="players"></game>
     <button v-if="showStartNew" @click="newGame()">Start New Game</button>

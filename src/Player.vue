@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-row items-center justify-between">
-    <p>
-      Player {{ index + 1 }}:
-      {{ player }}
-    </p>
+  <div class="flex flex-row items-center justify-between ma2">
+    <div class="flex flex-column pa0">
+      <p class="ma0 tl fw5">Player {{ index + 1 }}</p>
+      <h1 class="anton">{{ player }}</h1>
+    </div>
     <div class="">
       <button @click="removePlayer(player)">Remove</button>
     </div>
