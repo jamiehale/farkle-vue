@@ -5,6 +5,7 @@
     <game v-if="showGame" v-on:game-complete="onEndGame($event)" v-bind:players="players"></game>
     <button v-if="showStartNew" @click="newGame()">Start New Game</button>
     <help-modal></help-modal>
+    <v-dialog></v-dialog>
     <button @click="showHelp()">Help</button>
   </div>
 </template>
@@ -32,7 +33,25 @@ export default {
       this.state = 'done';
     },
     newGame() {
-      this.state = 'setup'
+      this.$modal.show('dialog', {
+        title: 'Are you sure?',
+        text: 'This will reset all player scores.',
+        buttons: [
+          {
+            title: 'Cancel',
+            handler: () => {
+              this.$modal.hide('dialog');
+            }
+          },
+          {
+            title: 'Yes',
+            handler: () => {
+              this.state = 'setup';
+              this.$modal.hide('dialog');
+            }
+          }
+        ]
+      });
     },
     showHelp() {
       this.$modal.show('help');
