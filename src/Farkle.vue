@@ -4,16 +4,19 @@
     <game-setup v-if="showSetup" v-on:new-game="onStartGame($event)" v-bind:players="players"></game-setup>
     <game v-if="showGame" v-on:game-complete="onEndGame($event)" v-bind:players="players"></game>
     <button v-if="showStartNew" @click="newGame()">Start New Game</button>
+    <help-modal></help-modal>
+    <button @click="showHelp()">Help</button>
   </div>
 </template>
 
 <script>
 import GameSetup from './GameSetup.vue';
 import Game from './Game.vue';
+import HelpModal from './HelpModal.vue';
 
 export default {
   name: "farkle",
-  components: { GameSetup, Game },
+  components: { GameSetup, Game, HelpModal },
   data() {
     return {
       state: 'setup',
@@ -30,6 +33,9 @@ export default {
     },
     newGame() {
       this.state = 'setup'
+    },
+    showHelp() {
+      this.$modal.show('help');
     }
   },
   computed: {
