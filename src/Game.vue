@@ -50,7 +50,7 @@ export default {
       this.editing = {
         round,
         player,
-        score: this.rounds[round][player]
+        score: this.rounds[round][player].score
       };
     },
     updateScore(score) {
@@ -60,7 +60,10 @@ export default {
         ...this.rounds.slice(0, round),
         [
           ...this.rounds[round].slice(0, player),
-          score,
+          {
+            ...this.rounds[round][player],
+            score
+          },
           ...this.rounds[round].slice(player + 1)
         ],
         ...this.rounds.slice(round + 1)
@@ -84,9 +87,9 @@ export default {
           thisRound = acc.lastRound
           	.slice(0, round.length)
             .map(r => r.total)
-            .map((t, i) => createPlayerRound(round[i], t + round[i]));
+            .map((t, i) => createPlayerRound(round[i].score, t + round[i].score));
         } else {
-          thisRound = round.map(t => createPlayerRound(t, t));
+          thisRound = round.map(t => createPlayerRound(t.score, t.score));
         }
       	return {
         	totals: [...acc.totals, thisRound],
@@ -96,7 +99,7 @@ export default {
     },
     playerTotals() {
       return this.rounds.reduce((acc, r) => {
-        return acc.map((t, i) => r[i] ? t + r[i] : t);
+        return acc.map((t, i) => r[i] ? t + r[i].score : t);
       }, this.players.map(_ => 0));
     }
   }
