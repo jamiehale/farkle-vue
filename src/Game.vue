@@ -14,6 +14,14 @@ import EditScore from './EditScore.vue';
 
 const createPlayerRound = (score, total) => ({ score, total });
 
+const loadRounds = () => {
+  return JSON.parse(window.localStorage.getItem('rounds') || '[]');
+};
+
+const saveRounds = (rounds) => {
+  window.localStorage.setItem('rounds', JSON.stringify(rounds));
+};
+
 export default {
   name: 'game',
   props: ['players'],
@@ -23,9 +31,14 @@ export default {
       state: 'playing',
       currentPlayer: 0,
       currentRound: 0,
-      rounds: [],
+      rounds: loadRounds(),
       editing: {}
     };
+  },
+  watch: {
+    rounds(newRounds) {
+      saveRounds(newRounds);
+    }
   },
   methods: {
     appendScore(score) {

@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-column center tc">
     <h1 class="anton f1 center">Farkle!</h1>
-    <game-setup v-if="showSetup" v-on:new-game="onStartGame($event)" v-bind:players="players"></game-setup>
-    <game v-if="showGame" v-on:game-complete="onEndGame($event)" v-bind:players="players"></game>
+    <game-setup v-if="showSetup" @new-game="onStartGame($event)" :players="players"></game-setup>
+    <game v-if="showGame" @game-complete="onEndGame($event)" :players="players"></game>
     <button v-if="showStartNew" @click="newGame()">Start New Game</button>
     <help-modal></help-modal>
     <v-dialog></v-dialog>
@@ -15,14 +15,38 @@ import GameSetup from './GameSetup.vue';
 import Game from './Game.vue';
 import HelpModal from './HelpModal.vue';
 
+const loadState = () => {
+  return window.localStorage.getItem('state') || 'setup';
+};
+
+const loadPlayers = () => {
+  return JSON.parse(window.localStorage.getItem('players') || '[]');
+};
+
+const saveState = (state) => {
+  window.localStorage.setItem('state', state);
+};
+
+const savePlayers = (players) => {
+  window.localStorage.setItem('players', JSON.stringify(players));
+};
+
 export default {
   name: "farkle",
   components: { GameSetup, Game, HelpModal },
   data() {
     return {
-      state: 'setup',
-      players: []
+      state: loadState(),
+      players: loadPlayers()
     };
+  },
+  watch: {
+    state(newState) {
+      saveState(newState);
+    },
+    players(newPlayers) {
+      savePlayers(newPlayers);
+    }
   },
   methods: {
     onStartGame(players) {
