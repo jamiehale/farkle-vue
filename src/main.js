@@ -5,12 +5,14 @@ import '!vue-style-loader!css-loader!tachyons/css/tachyons.css'
 
 import VueJsModal from 'vue-js-modal'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 
 Vue.use(VueJsModal, {
   dialog: true
 })
 
 Vue.use(VueRouter);
+Vue.use(Vuex)
 
 import GameSetup from './GameSetup.vue';
 import Game from './Game.vue';
