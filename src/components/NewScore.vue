@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { validScore, partialScore, isPartial, mergeScore } from './lib/validators';
+import { validScore, partialScore, isPartial, mergeScore } from '../lib/validators';
 
 export default {
   name: 'new-score',

@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import App from './App.vue'
-import Farkle from './Farkle.vue'
+import App from './components/App.vue'
+import Farkle from './components/Farkle.vue'
 import '!vue-style-loader!css-loader!tachyons/css/tachyons.css'
 
 import VueJsModal from 'vue-js-modal'
@@ -14,8 +14,8 @@ Vue.use(VueJsModal, {
 Vue.use(VueRouter);
 Vue.use(Vuex)
 
-import GameSetup from './GameSetup.vue';
-import Game from './Game.vue';
+import GameSetup from './components/GameSetup.vue';
+import Game from './components/Game.vue';
 
 const routes = [
   {
