@@ -13,12 +13,12 @@ export default new Vuex.Store({
     rounds: []
   },
   actions: {
-    newGame(context, players) {
-      context.commit('newGame', players);
+    startGame(context, players) {
+      context.commit('startGame', players);
     }
   },
   mutations: {
-    newGame(state, players) {
+    startGame(state, players) {
       state.players = players;
     }
   },
