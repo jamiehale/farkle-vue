@@ -20,10 +20,12 @@ import Game from './components/Game.vue';
 const routes = [
   {
     path: '/setup',
+    name: 'setup',
     component: GameSetup
   },
   {
     path: '/',
+    name: 'game',
     component: Game
   }
 ];
@@ -32,11 +34,14 @@ const router = new VueRouter({
   routes
 });
 
+import store from './store';
+
 new Vue({
-  router,
   el: '#app',
+  router,
+  store,
   components: {
     'farkle': Farkle
   },
   render: h => h(App)
-})
+});
