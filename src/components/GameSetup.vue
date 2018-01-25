@@ -7,50 +7,40 @@
         <player :player="player" :index="index" @remove-player="removePlayer($event)"></player>
       </li>
     </draggable>
-    <form class="mv4" @submit.prevent="addPlayer()">
-      <input ref="playerName" type="text" v-model="newPlayerName">
-      <button :disabled="!validPlayerName">Add Player</button>
-    </form>
+    <new-player :allPlayers="allPlayers" @add-player="addPlayer($event)"></new-player>
     <button @click="startGame()" :disabled="!readyToPlay">Start Game!</button>
   </div>
 </template>
 
 <script>
 import Player from './Player.vue';
+import NewPlayer from './NewPlayer.vue';
 import draggable from 'vuedraggable';
 
 export default {
   name: 'game-setup',
   props: ['players'],
-  components: { Player, draggable },
+  components: { Player, NewPlayer, draggable },
   data() {
     return {
-      allPlayers: this.players,
-      newPlayerName: ''
+      allPlayers: this.players
     }
   },
-  mounted() {
-    this.$refs.playerName.focus();
-    this.$refs.playerName.select();
-  },
   computed: {
-    validPlayerName() {
-      return this.newPlayerName !== '' && !this.allPlayers.includes(this.newPlayerName);
-    },
     readyToPlay() {
       return this.allPlayers.length > 0;
     }
   },
   methods: {
-    addPlayer() {
-      this.allPlayers = [...this.allPlayers, this.newPlayerName];
-      this.newPlayerName = '';
+    addPlayer(playerName) {
+      this.allPlayers = [...this.allPlayers, playerName];
     },
     removePlayer(name) {
       this.allPlayers = this.allPlayers.filter(p => p !== name);
     },
     startGame() {
-      this.$emit('new-game', this.allPlayers);
+      this.$store.dispatch('startGame', this.allPlayers);
+      this.$router.push({ name: 'game' });
     }
   }
 }
