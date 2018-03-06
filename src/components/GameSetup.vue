@@ -3,22 +3,20 @@
     <h1 class="anton f2">Game Setup</h1>
     <p>Add and arrange players, and then click "Start Game!"</p>
     <player-list v-model="allPlayers"></player-list>
-    <new-player :allPlayers="allPlayers" @add-player="addPlayer($event)"></new-player>
     <button @click="startGame()" :disabled="!readyToPlay">Start Game!</button>
+    <button @click="clearPlayerList()" :disabled="readyToPlay">Clear</button>
   </div>
 </template>
 
 <script>
 import PlayerList from './PlayerList.vue';
-import NewPlayer from './NewPlayer.vue';
 
 export default {
   name: 'game-setup',
-  props: ['players'],
-  components: { PlayerList, NewPlayer },
+  components: { PlayerList },
   data() {
     return {
-      allPlayers: this.players
+      allPlayers: this.$store.state.players
     }
   },
   computed: {
@@ -27,15 +25,12 @@ export default {
     }
   },
   methods: {
-    addPlayer(playerName) {
-      this.allPlayers = [...this.allPlayers, playerName];
-    },
-    removePlayer(name) {
-      this.allPlayers = this.allPlayers.filter(p => p !== name);
-    },
     startGame() {
       this.$store.dispatch('startGame', this.allPlayers);
       this.$router.push({ name: 'game' });
+    },
+    clearPlayerList() {
+      this.allPlayers = [];
     }
   }
 }

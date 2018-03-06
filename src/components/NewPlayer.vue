@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'new-player',
-  props: ['allPlayers'],
+  props: ['players'],
   data() {
     return {
       newPlayerName: ''
@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     validPlayerName() {
-      return this.newPlayerName !== '' && !this.allPlayers.includes(this.newPlayerName);
+      return this.newPlayerName !== '' && !this.players.includes(this.newPlayerName);
     }
   },
   methods: {
